@@ -288,6 +288,7 @@ class CornersProblem(search.SearchProblem):
         # Please add any code here which you would like to use
         # in initializing the problem
         "*** YOUR CODE HERE ***"
+        
 
     def getStartState(self):
         """
@@ -296,7 +297,6 @@ class CornersProblem(search.SearchProblem):
         """
         "*** YOUR CODE HERE ***"
         return (self.startingPosition, [])
-        util.raiseNotDefined()
 
     def isGoalState(self, state):
         """
@@ -304,12 +304,12 @@ class CornersProblem(search.SearchProblem):
         """
         "*** YOUR CODE HERE ***"
         node = state[0]
-        visitedCorners = state[1]
+        visited = state[1]
 
         if node in self.corners:
-            if not node in visitedCorners:
-                visitedCorners.append(node)
-            return len(visitedCorners) == 4
+            if not node in visited:
+                visited.append(node)
+            return len(visited) == 4
         return False
 
 
@@ -324,7 +324,7 @@ class CornersProblem(search.SearchProblem):
             is the incremental cost of expanding to that successor
         """
         x, y = state[0]
-        visitedCorners = state[1]
+        visited = state[1]
 
         successors = []
         for action in [Directions.NORTH, Directions.SOUTH, Directions.EAST, Directions.WEST]:
@@ -340,7 +340,7 @@ class CornersProblem(search.SearchProblem):
             nextx, nexty = int(x + dx), int(y + dy)
             hitsWall = self.walls[nextx][nexty]
             if not hitsWall:
-                successorVisitedCorners = list(visitedCorners)
+                successorVisitedCorners = list(visited)
                 next_node = (nextx, nexty)
                 if next_node in self.corners:
                     if next_node not in successorVisitedCorners:
@@ -382,22 +382,6 @@ def cornersHeuristic(state, problem):
     walls = problem.walls # These are the walls of the maze, as a Grid (game.py)
 
     "*** YOUR CODE HERE ***"
-    visitedCorners = state[1]
-    cornersLeftToVisit = []
-    for corner in corners:
-        if corner not in visitedCorners:
-            cornersLeftToVisit.append(corner)
-
-    totalCost = 0
-    coordinate = state[0]
-    curPoint = coordinate
-    while cornersLeftToVisit:
-        heuristic_cost, corner = \
-            min([(util.manhattanDistance(curPoint, corner), corner) for corner in cornersLeftToVisit])
-        cornersLeftToVisit.remove(corner)
-        curPoint = corner
-        totalCost += heuristic_cost
-    return totalCost
 
 class AStarCornersAgent(SearchAgent):
     "A SearchAgent for FoodSearchProblem using A* and your foodHeuristic"
@@ -489,20 +473,8 @@ def foodHeuristic(state, problem):
     Subsequent calls to this heuristic can access
     problem.heuristicInfo['wallCount']
     """
-    position, foodGrid = state
+    # position, foodGrid = state
     "*** YOUR CODE HERE ***"
-    return len(foodGrid.asList()) 
-    foodToEat = foodGrid.asList()
-    totalCost = 0
-    curPoint = position
-    while foodToEat:
-        heuristic_cost, food = \
-            min([(util.manhattanDistance(curPoint, food), food) for food in foodToEat])
-        foodToEat.remove(food)
-        curPoint = food
-        totalCost += heuristic_cost
-
-    return totalCost
 
 
 class ClosestDotSearchAgent(SearchAgent):
@@ -533,7 +505,6 @@ class ClosestDotSearchAgent(SearchAgent):
         problem = AnyFoodSearchProblem(gameState)
 
         "*** YOUR CODE HERE ***"
-        return search.bfs(problem)  
 
 
 class AnyFoodSearchProblem(PositionSearchProblem):
@@ -570,13 +541,7 @@ class AnyFoodSearchProblem(PositionSearchProblem):
         x,y = state
 
         "*** YOUR CODE HERE ***"
-        distance, goal = min([(util.manhattanDistance(state, goal), goal) for goal in self.food.asList()])
-        if state == goal:
-            return True
-        else:
-            return False
-        util.raiseNotDefined()
-
+     
 def mazeDistance(point1, point2, gameState):
     """
     Returns the maze distance between any two points, using the search functions
