@@ -2,15 +2,15 @@
 ## Đề bài :  http://ai.berkeley.edu/search.html
 
 ## Điểm autograder
-Question q1: 3/3
-Question q2: 3/3
-Question q3: 3/3
-Question q4: 3/3
-Question q5: 3/3
-Question q6: 0/3
-Question q7: 0/4
-Question q8: 0/3
-**Total**: 15/25
+- Question q1: 3/3
+- Question q2: 3/3
+- Question q3: 3/3
+- Question q4: 3/3
+- Question q5: 3/3
+- Question q6: 0/3
+- Question q7: 0/4
+- Question q8: 0/3
+- **Total**: 15/25
 
 ## Question1 
 - Duyệt trạng thái bằng thuật toán DFS sử dụng Stack
